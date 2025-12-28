@@ -9,7 +9,7 @@ function Edit() {
     axios
       .get(`/get_student/${id}`)
       .then((res) => {
-        setData(res.data);
+        setData(Array.isArray(res.data) ? res.data : []);
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -36,7 +36,7 @@ function Edit() {
       </Link>
       {data.map((student) => {
         return (
-          <form onSubmit={handleSubmit}>
+          <form key={student.id} onSubmit={handleSubmit}>
             <div className="form-group my-3">
               <label htmlFor="name">Name</label>
               <input

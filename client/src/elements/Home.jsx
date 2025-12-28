@@ -11,7 +11,7 @@ function Home() {
       axios
         .get("/students")
         .then((res) => {
-          setData(res.data);
+          setData(Array.isArray(res.data) ? res.data : []);
           console.log(res.data);
         })
         .catch((err) => console.log(err));
@@ -48,7 +48,7 @@ function Home() {
         <tbody>
           {data.map((student) => {
             return (
-              <tr>
+              <tr key={student.id}>
                 <td>{student.id}</td>
                 <td>{student.name}</td>
                 <td>{student.email}</td>

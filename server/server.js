@@ -30,7 +30,7 @@ app.post("/add_user", (req, res) => {
 app.get("/students", (req, res) => {
   const sql = "SELECT * FROM student_details";
   db.query(sql, (err, result) => {
-    if (err) res.json({ message: "Server error" });
+    if (err) return res.status(500).json({ message: "Server error" });
     return res.json(result);
   });
 });
@@ -39,7 +39,7 @@ app.get("/get_student/:id", (req, res) => {
   const id = req.params.id;
   const sql = "SELECT * FROM student_details WHERE `id`= ?";
   db.query(sql, [id], (err, result) => {
-    if (err) res.json({ message: "Server error" });
+    if (err) return res.status(500).json({ message: "Server error" });
     return res.json(result);
   });
 });
@@ -69,7 +69,7 @@ app.delete("/delete/:id", (req, res) => {
   db.query(sql, values, (err, result) => {
     if (err)
       return res.json({ message: "Something unexpected has occured" + err });
-    return res.json({ success: "Student updated successfully" });
+    return res.json({ success: "Student deleted successfully" });
   });
 });
 

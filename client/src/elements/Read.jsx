@@ -9,7 +9,7 @@ function Read() {
     axios
       .get(`/get_student/${id}`)
       .then((res) => {
-        setData(res.data);
+        setData(Array.isArray(res.data) ? res.data : []);
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -21,7 +21,7 @@ function Read() {
       </Link>
       {data.map((student) => {
         return (
-          <ul className="list-group">
+          <ul key={student.id} className="list-group">
             <li className="list-group-item">
               <b>ID: </b>
               {student["id"]}
